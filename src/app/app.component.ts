@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Promo } from './domain/car';
+import { Promo } from './domain/promo';
 import { PromoService } from './services/promo.service';
 
 @Component({
@@ -14,10 +14,11 @@ export class AppComponent implements OnInit{
 
     cols: any[];
     
-    constructor(private carService: PromoService) { }
+    constructor(private promoService: PromoService) { }
     
     ngOnInit() {
-        this.carService.getPromos().then(promos => this.promos = promos);
+        this.getPromociones();
+        //this.promoService.getPromos().then(promos => this.promos = promos);
 
         this.cols = [
             { field: 'resumen', header: 'Resumen' },
@@ -29,6 +30,11 @@ export class AppComponent implements OnInit{
 
     onRowSelect(event) {
         // TODO: implement navigation to promo details. User event.data object as parameter
+    }
+
+    private getPromociones(): void {
+        this.promoService.getPromos()
+            .subscribe(promos => this.promos = promos);
     }
     
 }

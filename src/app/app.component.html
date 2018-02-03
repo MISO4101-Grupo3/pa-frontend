@@ -1,4 +1,5 @@
-<p-table [columns]="cols" [value]="promos" selectionMode="single" 
+<ng-template [ngIf]="promos" [ngIfElse]="loading">
+    <p-table [columns]="cols" [value]="promos" selectionMode="single" 
     (onRowSelect)="onRowSelect($event)" [paginator]="false">
   <ng-template pTemplate="header" let-columns>
       <tr>
@@ -21,3 +22,10 @@
       </div>
   </ng-template>
 </p-table>
+ </ng-template>
+ 
+ <ng-template #loading>
+     <div>Loading...</div>
+ </ng-template>
+
+
