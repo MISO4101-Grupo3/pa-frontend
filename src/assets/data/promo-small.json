@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "id" : "1",
+            "nombre" : "Promoción de Fresas",
+            "descripcion" : "Fresas con el 50% de descuento en Carulla los martes de febrero",
+            "image" : "http://via.placeholder.com/350x150",
+            "resumen" : "50% en fresas de Carulla",
+            "precio" : "2300",
+            "fechaInicio" : "01/02/2018",
+            "fechaFin" : "28/02/2018",
+            "ciudad": "Boogtá",
+            "categoria": "Frutas y Verduras"
+        },
+        {
+            "id" : "2",
+            "nombre" : "Promoción de Kiwis",
+            "descripcion" : "Kiwis con el 30% de descuento en Carulla los miercoles del año",
+            "image" : "http://via.placeholder.com/350x150",
+            "resumen" : "30% en fresas de Carulla",
+            "precio" : "4200",
+            "fechaInicio" : "01/01/2018",
+            "fechaFin" : "31/12/2018",
+            "ciudad": "Boogtá",
+            "categoria": "Frutas y Verduras"
+        }
+    ]
+}
