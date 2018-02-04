@@ -2,7 +2,7 @@ export interface Promo {
     id? : String;
     nombre? : String;
     descripcion? : String;
-    image? : String;
+    imagen? : String;
     resumen? : String;
     precio? : String;
     fechaInicio? : String;

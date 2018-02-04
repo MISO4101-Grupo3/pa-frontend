@@ -18,7 +18,6 @@ export class AppComponent implements OnInit{
     
     ngOnInit() {
         this.getPromociones();
-        //this.promoService.getPromos().then(promos => this.promos = promos);
 
         this.cols = [
             { field: 'resumen', header: 'Resumen' },
@@ -28,7 +27,8 @@ export class AppComponent implements OnInit{
         ];
     }
 
-    onRowSelect(event) {
+    selectPromo(promo: Promo) {
+        alert('Listo para la V2');
         // TODO: implement navigation to promo details. User event.data object as parameter
     }
 
@@ -41,5 +41,5 @@ export class AppComponent implements OnInit{
 
 export class PromoView implements Promo {
 
-    constructor(public resumen?, public precio?, public fechaInicio?, public fechaFin?) {}
+    constructor(public nombre?, public resumen?, public precio?, public fechaInicio?, public fechaFin?, public imagen?) {}
 }
