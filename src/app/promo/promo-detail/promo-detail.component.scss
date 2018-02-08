@@ -1,0 +1,35 @@
+.promo-header {
+    margin-left: auto;
+    margin-right: auto;
+    color: #1b1d1f;
+    font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    text-align: center;
+}
+
+.promo-image img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.promo-basic-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: -1px;
+
+    .promo-basic-info-element {
+        flex-grow: 1;
+        flex-basis: auto;
+        margin: .25em 0;
+        padding: 0 1em;
+        text-align: center;
+        border-left: 1px solid #ccc;
+    }
+}
+
+.promo-city {
+    color: red;
+}

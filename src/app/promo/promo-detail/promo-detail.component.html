@@ -1,0 +1,26 @@
+<ng-template [ngIf]="promo" [ngIfElse]="loading">
+  <div class="promo-header">
+    {{promo.nombre}}
+  </div>
+  <div class="promo-image">
+    <img src="{{promo.imagen}}" />
+  </div>
+  <div class="promo-basic-info">
+    <div class="promo-basic-info-element promo-dates ">Inicia: {{promo.fechaInicio}} - Finaliza: {{promo.fechaFin}}</div>
+    <div class="promo-basic-info-element promo-city">Ciudad: {{promo.ciudad}}</div>
+    <div class="promo-basic-info-element promo-price">{{promo.precio | currency}}</div>
+  </div>
+  <p-panel header="Descripción detallada">
+      <p>{{promo.resumen}}</p>
+      <p>{{promo.descripcion}}</p>
+  </p-panel>
+  <p-fieldset legend="Comentarios">
+    Muchos comentarios
+  </p-fieldset>
+  
+</ng-template>
+
+<ng-template #loading>
+    <div>Cargando...</div>
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>     
+</ng-template>

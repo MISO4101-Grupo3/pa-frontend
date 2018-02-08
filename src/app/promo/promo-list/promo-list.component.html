@@ -1,0 +1,27 @@
+<ng-template [ngIf]="promos" [ngIfElse]="loading">
+  <p-dataGrid [value]="promos" [paginator]="true" [rows]="8">
+      <p-header>
+          <h1>
+              Las mejores promociones<br/>para hoy
+          </h1>
+      </p-header>
+      <p-footer>www.promociones.com - Todos los derechos reservados - MISO 4101 - 2018-I</p-footer>
+      <ng-template let-promo pTemplate="item">
+          <div class="ui-g-12 ui-md-3" style="padding:3px">
+              <p-panel [header]="promo.nombre" [style]="{'text-align':'center'}">
+                  <img src="{{promo.imagen}}" width="80px" height="80px" />
+                  <div class="promo-dates">Inicia: {{promo.fechaInicio}} - Finaliza: {{promo.fechaFin}}</div>
+                  <div class="promo-detail">{{promo.resumen}}</div>
+                  <div class="promo-price">{{promo.precio | currency}}</div>
+                  <hr class="ui-widget-content" style="border-top:0">
+                  <i class="fa fa-search" (click)="selectPromo(promo)" style="cursor:pointer"></i>
+              </p-panel>
+          </div>
+      </ng-template>
+  </p-dataGrid>
+</ng-template>
+
+<ng-template #loading>
+   <div>Cargando...</div>
+   <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>     
+</ng-template>
