@@ -13,11 +13,11 @@ export class AppComponent implements OnInit{
     ngOnInit() {
     }
 
-    private navigateSignIn(): void {
+    navigateSignIn(): void {
         this.router.navigateByUrl('/sign-in');
     }
     
-    private navigateSignUp(): void {
+    navigateSignUp(): void {
         this.router.navigateByUrl('/sign-up');
     }
 }
