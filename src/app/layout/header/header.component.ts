@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +11,20 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  isLoggedIn$: Observable<boolean>;
+  isLoggedIn: boolean;
+
+  authSubscription: Subscription;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.handleAuth();
+  }
+
+  private handleAuth(): void {
+    this.authSubscription = this.authService.isLoggedIn.subscribe(authStatus => {
+      this.isLoggedIn = authStatus;
+    });
   }
 
   logOut(): void {

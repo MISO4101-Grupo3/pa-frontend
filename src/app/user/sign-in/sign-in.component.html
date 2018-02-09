@@ -1,3 +1,43 @@
-<p>
-  sign-in works!
-</p>
+<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+    <p-panel header="Acceder a la aplicación">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Nombre de usuario *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="username" placeholder="ej. paolac"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['username'].valid&&userform.controls['username'].dirty">
+                        <i class="fa fa-close"></i>
+                        <span *ngIf="userform.controls['username'].errors['required']">Por favor escribe el nombre de usuario</span>
+                        <span *ngIf="userform.controls['username'].errors['minlength']">El nombre de usuario debe contener más de 6 cáracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Contraseña *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="password" formControlName="password" placeholder="ej. $ad0A2"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty">
+                        <i class="fa fa-close"></i>
+                        <span *ngIf="userform.controls['password'].errors['required']">Por favor escribela contraseña</span>
+                        <span *ngIf="userform.controls['password'].errors['minlength']">La contraseña debe contener más de 8 cáracteres</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-6">
+                    <button pButton type="submit" label="Acceder" [disabled]="!userform.valid || submitted"></button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+        </div>
+    </p-panel>
+</form>
