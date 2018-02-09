@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder} from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
+import { Subscription } from 'rxjs/Subscription';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,13 +17,19 @@ export class SignInComponent implements OnInit {
 
   submitted: boolean;
 
+  authSubscription: Subscription;
+
+  messages: any[];
+
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-      this.userform = this.fb.group({
-          'username': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-          'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)]))
-      });
+    this.messages = [];
+    this.userform = this.fb.group({
+        'email': new FormControl('', Validators.compose([Validators.required, Validators.email])),
+        'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)]))
+    });
+    this.handleAuth();
   }
 
   onSubmit(value: string) {
@@ -28,7 +37,18 @@ export class SignInComponent implements OnInit {
         this.authService.login(this.userform.value);
     }
     this.submitted = true;
-    this.router.navigateByUrl("promos");
+  }
+
+  private handleAuth(): void {
+    this.authSubscription = this.authService.isLoggedIn.subscribe(authStatus => {
+      if ( authStatus ){
+        this.router.navigateByUrl("promos");
+      }
+      else {
+        this.submitted = false;
+        this.messages.push({severity:'danger', summary:'Falló el login', detail:'Tu correo o contraseña no son válidos!'});
+      }
+    });
   }
 
 }

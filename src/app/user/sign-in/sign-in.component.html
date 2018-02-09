@@ -1,18 +1,19 @@
+<p-growl [(value)]="messages"></p-growl>
 <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
     <p-panel header="Acceder a la aplicación">
         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
-                    Nombre de usuario *:
+                    Correo electrónico *:
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText type="text" formControlName="username" placeholder="ej. paolac"/>
+                    <input pInputText type="text" formControlName="email" placeholder="ej. paolac"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['username'].valid&&userform.controls['username'].dirty">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">
                         <i class="fa fa-close"></i>
-                        <span *ngIf="userform.controls['username'].errors['required']">Por favor escribe el nombre de usuario</span>
-                        <span *ngIf="userform.controls['username'].errors['minlength']">El nombre de usuario debe contener más de 6 cáracteres</span>
+                        <span *ngIf="userform.controls['email'].errors['required']">Por favor escribe el correo electrónico del usuario</span>
+                        <span *ngIf="userform.controls['email'].errors['email']">El correo electrónico del usuario debe cumplir con el formato ej. name@domain.com</span>
                     </div>
                 </div>
             </div>
