@@ -15,6 +15,7 @@ import { GrowlModule } from 'primeng/growl';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 
 import { AppComponent } from './app.component';
@@ -49,6 +50,7 @@ import { AuthService } from './services/auth.service';
     ProgressBarModule,
     ToolbarModule,
     FieldsetModule,
+    SplitButtonModule,
     GrowlModule,
     DropdownModule,
     InputTextModule,

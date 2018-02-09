@@ -15,15 +15,25 @@ export class HeaderComponent implements OnInit {
 
   authSubscription: Subscription;
 
+  name: String;
+
+  actions: any[];
+
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.actions = [
+      {
+        label: 'Salir', icon: 'fa-times', command: () => this.logOut() 
+      }
+    ];
     this.handleAuth();
   }
 
   private handleAuth(): void {
     this.authSubscription = this.authService.isLoggedIn.subscribe(authStatus => {
       this.isLoggedIn = authStatus;
+      this.name = this.authService.userName;
     });
   }
 

@@ -11,8 +11,7 @@
                 routerLink="sign-up"></button>
         </div>
         <ng-template #notLoggedIn>
-            <button pButton type="button" icon="fa-times" label="Salir" class="ui-button-danger" 
-                (click)="logOut();"></button>
+            <p-splitButton label="{{ name }}" icon="fa-user" [model]="actions"></p-splitButton>
         </ng-template>
     </div>
 </p-toolbar>

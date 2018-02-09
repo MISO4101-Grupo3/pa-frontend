@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -15,8 +15,14 @@ export class AuthService {
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private token: String;
+
+    private realName: String;
     
     constructor(private http: HttpClient) {}
+
+    get userName() {
+        return this.realName;
+    }
     
     get isLoggedIn() {
         return this.loggedIn.asObservable();
@@ -27,9 +33,15 @@ export class AuthService {
         if (user.email !== '' && user.password != '' ){
             this.requestAuthenticationToken(user).subscribe(
                 data => {
-                    if( 'token' in data){
+                    if( 'token' in data ){
                         this.token = data.token;
-                        this.loggedIn.next(true);
+                        this.requestPersonalData().subscribe(
+                            data => {
+                                this.realName = data.first_name + ' ' + data.last_name;
+                                this.realName = this.realName.trim();
+                                this.loggedIn.next(true);
+                            }
+                        );
                     }
                     else {
                         this.loggedIn.next(false);
@@ -49,6 +61,15 @@ export class AuthService {
               );
     }
 
+    private requestPersonalData(): Observable<any> {
+        return this.http.get<any>( environment.api + '/auth/me', {
+            headers: new HttpHeaders().set('Authorization', 'Token ' + this.token)
+        })
+            .pipe(
+                catchError(this.handleError('Failure retrieving user data', {}))
+                );
+    }
+
     private handleError<T> (operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);
@@ -57,6 +78,7 @@ export class AuthService {
     }
 
     logout() {
+        this.realName = "";
         this.token = null;
         this.loggedIn.next(false);
     }
