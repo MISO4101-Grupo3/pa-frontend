@@ -1,0 +1,16 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" icon="fa-home" class="ui-button-info" 
+        routerLink="promos"></button>
+    </div>
+    <div class="ui-toolbar-group-right">
+        <button pButton type="button" icon="fa-check" label="Acceder" class="ui-button-success" 
+            routerLink="sign-in"></button>
+        <button pButton type="button" icon="fa-plus" label="Registro" 
+            routerLink="sign-up" *ngIf="!isLoggedIn; else notLoggedIn"></button>
+        <ng-template #notLoggedIn>
+            <button pButton type="button" icon="fa-times" label="Salir" class="ui-button-danger" 
+                (click)="logOut();"></button>
+        </ng-template>
+    </div>
+</p-toolbar>

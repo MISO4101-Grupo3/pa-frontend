@@ -21,6 +21,8 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './layout/header/header.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
     PromoListComponent,
     PromoDetailComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule
   ],
   providers: [
-    PromoService
+    PromoService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
