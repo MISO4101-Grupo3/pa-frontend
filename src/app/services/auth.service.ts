@@ -8,6 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../domain/user';
+import { Usuario } from '../domain/usuario';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,8 @@ export class AuthService {
 
     private realName: String;
     
+    private user: Usuario;
+    
     constructor(private http: HttpClient) {}
 
     get userName() {
@@ -26,6 +29,10 @@ export class AuthService {
     
     get isLoggedIn() {
         return this.loggedIn.asObservable();
+    }
+
+    get userData() {
+        return this.user;
     }
 
     login(user: User) {
@@ -39,6 +46,7 @@ export class AuthService {
                             data => {
                                 this.realName = data.first_name + ' ' + data.last_name;
                                 this.realName = this.realName.trim();
+                                this.user = data;
                                 this.loggedIn.next(true);
                             }
                         );

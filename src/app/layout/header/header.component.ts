@@ -24,7 +24,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.actions = [
       {
-        label: 'Salir', icon: 'fa-times', command: () => this.logOut() 
+        label: 'Actualizar Datos', icon: 'fa-times', routerLink: "update-profile" 
+      },
+      {
+        label: 'Salir', icon: 'fa-times', command: () => this.logOut()
       }
     ];
     this.handleAuth();
