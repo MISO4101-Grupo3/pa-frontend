@@ -44,8 +44,8 @@ export class RegisterService {
               );
     }
 
-    updateUser(user: Usuario): Observable<any> {
-        return this.http.put<any>( environment.api + '/registrousuarios/'+user.id+"/", {... user, foto: null, password: 'ASDasd123'}).pipe(catchError(this.handleError('Failure authenticating user', {})))
+    updateUser(user: Usuario, file: any): Observable<any> {
+        return this.http.patch<any>( environment.api + '/registrousuarios/'+user.id+"/", {... user, foto: null}).pipe(catchError(this.handleError('Failure authenticating user', {})))
     }
 
     private handleError<T> (operation = 'operation', result?: T) {

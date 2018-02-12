@@ -23,6 +23,7 @@ export class UpdateProfileComponent implements OnInit {
   messages: any[];
   user: Usuario;
   file: any;
+  finalFile: String;
   submitted = false;
   authSubscription: Subscription;
   categories: Category[];
@@ -72,14 +73,22 @@ export class UpdateProfileComponent implements OnInit {
 
   onSubmit(value: FormGroup) {
     if (this.updateform.valid) {
-      this.registerService.updateUser(this.user).subscribe(data => console.log(data))
+      this.registerService.updateUser(this.user, this.finalFile).subscribe(data => console.log(data))
       this.router.navigateByUrl('promos')
     }
     this.submitted = true;
   }
 
   imageUpload(e) {
-    this.file = e.target.files[0];
+    let reader = new FileReader();
+    //get the selected file from event
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      //Assign the result to variable for setting the src of image element
+      // this.user.foto = file;
+      this.finalFile = reader.result;
+    }
+    reader.readAsDataURL(file);
     console.log(this.file)
   }
 
