@@ -8,7 +8,7 @@
                     Nombre *:
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText type="text" formControlName="first_name" placeholder="Required"/>
+                    <input pInputText type="text" formControlName="first_name" placeholder="Ej. Pedro"/>
                 </div>
                 <div class="ui-grid-col-4">
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['first_name'].valid&&userform.controls['first_name'].dirty">
@@ -22,7 +22,7 @@
                     Apellido *:
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText type="text" formControlName="last_name" placeholder="Required"/>
+                    <input pInputText type="text" formControlName="last_name" placeholder="Ej. Fernández"/>
                 </div>
                 <div class="ui-grid-col-4">
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['last_name'].valid&&userform.controls['last_name'].dirty">
@@ -36,7 +36,7 @@
                   Pais *:
               </div>
               <div class="ui-grid-col-6">
-                  <input pInputText type="text" formControlName="pais" placeholder="Required"/>
+                  <input pInputText type="text" formControlName="pais" placeholder="Ej. Ecuador"/>
               </div>
               <div class="ui-grid-col-4">
                   <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['pais'].valid&&userform.controls['pais'].dirty">
@@ -64,7 +64,7 @@
                   Dirección *:
               </div>
               <div class="ui-grid-col-6">
-                  <input pInputText type="text" formControlName="direccion" placeholder="Required"/>
+                  <input pInputText type="text" formControlName="direccion" placeholder="Ej. Calle falsa 123"/>
               </div>
               <div class="ui-grid-col-4">
                   <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['direccion'].valid&&userform.controls['direccion'].dirty">
@@ -78,7 +78,7 @@
                   Email *:
               </div>
               <div class="ui-grid-col-6">
-                  <input pInputText type="text" formControlName="email" placeholder="Required"/>
+                  <input pInputText type="text" formControlName="email" placeholder="Ej. data@dominio.com"/>
               </div>
               <div class="ui-grid-col-4">
                   <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">
@@ -92,7 +92,7 @@
                     Password *:
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText type="password" formControlName="password" ng-model="password"/>
+                    <input pInputText type="password" formControlName="password" ng-model="password" placeholder="Ej. asd24$dasAa"/>
                 </div>
                 <div class="ui-grid-col-4">
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">

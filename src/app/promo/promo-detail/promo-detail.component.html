@@ -7,7 +7,11 @@
   </div>
   <div class="promo-basic-info">
     <div class="promo-basic-info-element promo-dates ">Inicia: {{promo.fechaInicio}} - Finaliza: {{promo.fechaFin}}</div>
-    <div class="promo-basic-info-element promo-city">Ciudad: {{promo.ciudad}}</div>
+    <div class="promo-basic-info-element promo-city">Ciudad: 
+      <span [ngSwitch]="promo.ciudad">
+        <span *ngSwitchCase="1">Bogotá</span>
+      </span>
+    </div>
     <div class="promo-basic-info-element promo-price">{{promo.precio | currency}}</div>
   </div>
   <p-panel header="Descripción detallada">
