@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { Promo } from '../../domain/promo';
+import { Comment } from '../../domain/comment';
 import { PromoService } from '../../services/promo.service';
+import { CommentService } from '../../services/comment.service';
 
 @Component({
   selector: 'app-promo-detail',
@@ -12,15 +13,17 @@ import { PromoService } from '../../services/promo.service';
 })
 export class PromoDetailComponent implements OnInit {
   @Input() promo: Promo;
+  @Input() comments: Comment[];
 
   constructor(
     private route: ActivatedRoute,
     private promoService: PromoService,
-    private location: Location
+    private commentService: CommentService
   ) {}
 
   ngOnInit() {
     this.getPromo();
+    this.getComments();
   }
 
   private getPromo(): void {
@@ -28,6 +31,14 @@ export class PromoDetailComponent implements OnInit {
     this.promoService.getPromos()
       .subscribe(promos => {
         this.promo = promos.find(promo => +promo.id === id);
+      });
+  }
+
+  private getComments(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.commentService.getComments()
+      .subscribe(comments => {
+        this.comments = comments.filter(comment => +comment.promocion === id);
       });
   }
 }

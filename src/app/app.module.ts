@@ -28,6 +28,7 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { AuthService } from './services/auth.service';
+import { CommentService } from './services/comment.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AuthService } from './services/auth.service';
   ],
   providers: [
     PromoService,
+    CommentService,
     AuthService
   ],
   bootstrap: [AppComponent]
