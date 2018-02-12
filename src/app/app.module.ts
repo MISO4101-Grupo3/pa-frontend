@@ -30,6 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { AuthService } from './services/auth.service';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+import { CommentService } from './services/comment.service';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { UpdateProfileComponent } from './user/update-profile/update-profile.com
   ],
   providers: [
     PromoService,
+    CommentService,
     AuthService
   ],
   bootstrap: [AppComponent]

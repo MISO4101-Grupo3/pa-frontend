@@ -33,3 +33,18 @@
 .promo-city {
     color: red;
 }
+
+.comentario {
+    border-left: solid gray 2px;
+    padding-left: 1em;
+    
+    .comentario-texto {
+        text-align: justify;
+    }
+    
+    .comentario-correo {
+        text-align: left;
+        font-family:'Courier New', Courier, monospace;
+        font-size: 12px;
+    }
+}

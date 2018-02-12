@@ -11,16 +11,26 @@
     <div class="promo-basic-info-element promo-price">{{promo.precio | currency}}</div>
   </div>
   <p-panel header="Descripción detallada">
-      <p>{{promo.resumen}}</p>
-      <p>{{promo.descripcion}}</p>
+    <p>{{promo.resumen}}</p>
+    <p>{{promo.descripcion}}</p>
   </p-panel>
-  <p-fieldset legend="Comentarios">
-    Muchos comentarios
-  </p-fieldset>
-  
 </ng-template>
-
 <ng-template #loading>
     <div>Cargando...</div>
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>     
+</ng-template>
+<ng-template [ngIf]="comments" [ngIfElse]="loadingComments">
+  <p-panel header="Comentarios">
+    <div class="comentario" *ngFor="let comentario of comments">
+      <p class="comentario-texto">{{ comentario.texto }}</p>
+      <p class="comentario-correo">{{ comentario.correo }}</p>
+    </div>
+    <p *ngIf="comments?.length == 0">
+      No hay comentarios para mostrar! :(
+    </p>   
+  </p-panel>
+</ng-template>
+<ng-template #loadingComments>
+    <div>Cargando comentarios...</div>
     <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>     
 </ng-template>
