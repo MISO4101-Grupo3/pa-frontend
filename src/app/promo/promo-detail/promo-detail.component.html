@@ -7,7 +7,7 @@
   </div>
   <div class="promo-basic-info">
     <div class="promo-basic-info-element promo-dates ">Inicia: {{promo.fechaInicio}} - Finaliza: {{promo.fechaFin}}</div>
-    <div class="promo-basic-info-element promo-city">Ciudad: 
+    <div class="promo-basic-info-element promo-city">Ciudad:
       <span [ngSwitch]="promo.ciudad">
         <span *ngSwitchCase="1">Bogotá</span>
       </span>
@@ -20,21 +20,69 @@
   </p-panel>
 </ng-template>
 <ng-template #loading>
-    <div>Cargando...</div>
-    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>     
+  <div>Cargando...</div>
+  <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 </ng-template>
 <ng-template [ngIf]="comments" [ngIfElse]="loadingComments">
-  <p-panel header="Comentarios">
+  <p-panel>
+    <p-header>
+      <div class="ui-helper-clearfix">
+        <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Comentarios</span>
+
+        <button pButton [style]="{'float':'right'}" type="button" (click)="showDialog()" pButton icon="fa-plus" label="Agregar Comentario"></button>
+      </div>
+    </p-header>
     <div class="comentario" *ngFor="let comentario of comments">
       <p class="comentario-texto">{{ comentario.texto }}</p>
       <p class="comentario-correo">{{ comentario.correo }}</p>
     </div>
     <p *ngIf="comments?.length == 0">
       No hay comentarios para mostrar! :(
-    </p>   
+    </p>
   </p-panel>
+  <p-dialog header="Agregar Comentario" [(visible)]="display" modal="modal" width="800" [responsive]="true">
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm.value)">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-3">
+          Correo electrónico *:
+        </div>
+        <div class="ui-grid-col-5">
+          <input pInputText type="text" formControlName="correo" placeholder="ej. paolac@test.com" />
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!commentForm.controls['correo'].valid&&commentForm.controls['correo'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="commentForm.controls['correo'].errors['required']">Por favor escribe el correo electrónico del usuario</span>
+            <span *ngIf="commentForm.controls['correo'].errors['email']">El correo electrónico del usuario debe cumplir con el formato ej. name@domain.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+          <div class="ui-grid-col-3">
+            Comentario *:
+          </div>
+          <div class="ui-grid-col-5">
+            <textarea rows="5" cols="30" formControlName="texto" pInputTextarea autoResize="autoResize"></textarea>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!commentForm.controls['texto'].valid&&commentForm.controls['texto'].dirty">
+              <i class="fa fa-close"></i>
+              <span *ngIf="commentForm.controls['texto'].errors['required']">Por favor escribe tu comentario</span>
+              <span *ngIf="commentForm.controls['texto'].errors['maxlength']">El comentario no puede superar los 300 caracteres</span>
+            </div>
+          </div>
+        </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-6">
+          <button pButton type="submit" icon="fa-send" label="Enviar" [disabled]="!commentForm.valid || submitted"></button>
+        </div>
+        <div class="ui-grid-col-4"></div>
+      </div>
+    </form>
+  </p-dialog>
 </ng-template>
 <ng-template #loadingComments>
-    <div>Cargando comentarios...</div>
-    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>     
+  <div>Cargando comentarios...</div>
+  <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 </ng-template>

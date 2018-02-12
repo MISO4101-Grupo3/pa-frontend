@@ -20,6 +20,11 @@ export class CommentService {
           );
     }
 
+    addComment(comment: Comment): Observable<Comment>{
+        return this.http.post<any>( environment.api + '/comentarios/', comment)
+        .pipe(catchError(this.handleError('Fetching /comentarios', [])))
+    }
+
     /**
      * Handle Http operation that failed.
      * Let the app continue.

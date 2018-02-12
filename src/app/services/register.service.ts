@@ -38,14 +38,14 @@ export class RegisterService {
 
 
     private requestRegister(user: RegisterUser): Observable<any> {
-        return this.http.post<any>( environment.api + '/registrousuarios/', user)
+        return this.http.post<any>( environment.api + '/usuarios/', user)
             .pipe(
                 catchError(this.handleError('Failure authenticating user', {}))
               );
     }
 
     updateUser(user: Usuario, file: any): Observable<any> {
-        return this.http.patch<any>( environment.api + '/registrousuarios/'+user.id+"/", {... user, foto: null}).pipe(catchError(this.handleError('Failure authenticating user', {})))
+        return this.http.patch<any>( environment.api + '/usuarios/'+user.id+"/", {... user, foto: null}).pipe(catchError(this.handleError('Failure authenticating user', {})))
     }
 
     private handleError<T> (operation = 'operation', result?: T) {
