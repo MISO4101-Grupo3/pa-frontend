@@ -17,6 +17,8 @@ export class SignInComponent implements OnInit {
 
   submitted: boolean;
 
+  firstTime: boolean;
+
   authSubscription: Subscription;
 
   messages: any[];
@@ -25,6 +27,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.messages = [];
+    this.firstTime = true;
     this.userform = this.fb.group({
         'email': new FormControl('', Validators.compose([Validators.required, Validators.email])),
         'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)]))
@@ -46,7 +49,10 @@ export class SignInComponent implements OnInit {
       }
       else {
         this.submitted = false;
-        this.messages.push({severity:'danger', summary:'Falló el login', detail:'Tu correo o contraseña no son válidos!'});
+        if( !this.firstTime ){
+          this.messages.push({severity:'danger', summary:'Falló el login', detail:'Tu correo o contraseña no son válidos!'});
+        }
+        this.firstTime = false;
       }
     });
   }

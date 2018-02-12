@@ -16,6 +16,7 @@ export class SignUpComponent implements OnInit {
   userform: FormGroup;
   submitted: boolean;
   ciudad: SelectItem[];
+  firstTime: boolean;
   registerSubscription: Subscription;
   msgs: any[];
 
@@ -23,6 +24,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.msgs = [];
+    this.firstTime = true;
     this.userform = this.fb.group({
         'email': new FormControl('', Validators.compose([Validators.required, Validators.email])),
         'password': new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)])),
@@ -36,7 +38,7 @@ export class SignUpComponent implements OnInit {
 
     });
     this.ciudad = [];
-    this.ciudad.push({label:'Seleccionar Ciuidad', value:''});
+    this.ciudad.push({label:'Seleccionar una Ciuidad', value:''});
     this.ciudad.push({label:'Bogotá', value:1});
     this.handleAuth();
   }
@@ -55,7 +57,10 @@ export class SignUpComponent implements OnInit {
       }
       else {
         this.submitted = false;
-        this.msgs.push({severity:'danger', summary:'Falló el Registro', detail:'Algun campo que ingresaste no es valido'});
+        if ( !this.firstTime ){
+          this.msgs.push({severity:'danger', summary:'Falló el Registro', detail:'Algun campo que ingresaste no es valido'});
+        }
+        this.firstTime = false;
       }
     });
   }
