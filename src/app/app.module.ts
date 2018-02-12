@@ -28,6 +28,7 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { AuthService } from './services/auth.service';
+import { RegisterService } from './services/register.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AuthService } from './services/auth.service';
     AppRoutingModule
   ],
   providers: [
+    RegisterService,
     PromoService,
     AuthService
   ],
