@@ -16,6 +16,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 import { AppComponent } from './app.component';
@@ -29,6 +30,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { AuthService } from './services/auth.service';
 import { RegisterService } from './services/register.service';
+import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+import { CommentService } from './services/comment.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { RegisterService } from './services/register.service';
     PromoDetailComponent,
     SignUpComponent,
     SignInComponent,
-    HeaderComponent
+    HeaderComponent,
+    UpdateProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,7 @@ import { RegisterService } from './services/register.service';
     DataGridModule,
     PanelModule,
     ProgressBarModule,
+    CheckboxModule,
     ToolbarModule,
     FieldsetModule,
     SplitButtonModule,
@@ -62,6 +67,7 @@ import { RegisterService } from './services/register.service';
   providers: [
     RegisterService,
     PromoService,
+    CommentService,
     AuthService
   ],
   bootstrap: [AppComponent]

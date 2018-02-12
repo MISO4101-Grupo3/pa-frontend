@@ -1,0 +1,143 @@
+<ng-template [ngIf]="ciudades&&categories&&user" [ngIfElse]="loading">
+
+    <p-growl [(value)]="messages"></p-growl>
+    <form [formGroup]="updateform" (ngSubmit)="onSubmit(updateform)" enctype='multipart/form-data'>
+        <p-panel header="Actualizar datos del usuario">
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Nombre:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="first_name" [(ngModel)]="user.first_name" placeholder="ej. Gloria" value={{user.first_name}}/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateform.controls['first_name'].valid&&updateform.controls['first_name'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="updateform.controls['first_name'].errors['required']">Por favor escriba sus nombres</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Apellidos:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="last_name" [(ngModel)]="user.last_name" placeholder="ej. Gomez" value={{user.last_name}}/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateform.controls['last_name'].valid&&updateform.controls['last_name'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="updateform.controls['last_name'].errors['required']">Por favor escriba sus apellidos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Correo electrónico *:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="email" [(ngModel)]="user.email" placeholder="ej. paolac@test.com" value={{user.email}}/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateform.controls['email'].valid&&updateform.controls['email'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="updateform.controls['email'].errors['required']">Por favor escribe el correo electrónico del usuario</span>
+                            <span *ngIf="updateform.controls['email'].errors['email']">El correo electrónico del usuario debe cumplir con el formato ej. name@domain.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Dirección:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="direccion" [(ngModel)]="user.direccion" placeholder="ej. Av. Cll. Siempre Viva 1234" value={{user.direccion}}/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateform.controls['direccion'].valid&&updateform.controls['direccion'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="updateform.controls['direccion'].errors['required']">Por favor seleccione una foto</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        País:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText type="text" formControlName="pais" [(ngModel)]="user.pais" placeholder="ej. Colombia" value={{user.pais}}/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateform.controls['pais'].valid&&updateform.controls['pais'].dirty">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="updateform.controls['pais'].errors['required']">Por favor seleccione una foto</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Ciudad:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-dropdown [options]="ciudades" formControlName="ciudad" [(ngModel)]="selectedCity"></p-dropdown>
+                    </div>
+                    <div class="ui-grid-col-4">
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Categorias:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-dataGrid [value]="categories">
+                            <ng-template let-category pTemplate="item">
+                                <div class="ui-g-12 ui-md-4" style="padding:3px">
+                                    <p-checkbox name="Category" value={{category.id}} label={{category.nombre}} [formControl]="updateform.controls['favoritas']" [(ngModel)]="user.favoritas" id={{category.id}} ></p-checkbox>
+                                </div>
+                            </ng-template>
+                        </p-dataGrid>
+                    </div>
+                    <div class="ui-grid-col-4">
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Foto:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputFile type="file" formControlName="foto" [(ngModel)]="user.foto" placeholder="ej. Gomez" value={{user.foto}} (change)="imageUpload($event)"/>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!updateform.controls['foto'].valid">
+                            <i class="fa fa-close"></i>
+                            <span *ngIf="updateform.controls['foto'].errors['required']">Por favor seleccione una foto</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        Foto Cargada:
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <img src={{user.foto}} [(ngModel)]="user.foto" alt="userPhoto" />
+                    </div>
+                    <div class="ui-grid-col-4">
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-6">
+                        <button pButton type="submit" label="Actualizar" [disabled]="!updateform.valid || submitted"></button>
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+            </div>
+        </p-panel>
+    </form>
+</ng-template>
+
+<ng-template #loading>
+    <div>Cargando...</div>
+    <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+</ng-template>
