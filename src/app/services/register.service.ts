@@ -8,6 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { RegisterUser } from '../domain/registeruser';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Usuario } from '../domain/usuario';
 
 @Injectable()
 export class RegisterService {
@@ -41,6 +42,10 @@ export class RegisterService {
             .pipe(
                 catchError(this.handleError('Failure authenticating user', {}))
               );
+    }
+
+    updateUser(user: Usuario): Observable<any> {
+        return this.http.put<any>( environment.api + '/registrousuarios/'+user.id+"/", {... user, foto: null, password: 'ASDasd123'}).pipe(catchError(this.handleError('Failure authenticating user', {})))
     }
 
     private handleError<T> (operation = 'operation', result?: T) {

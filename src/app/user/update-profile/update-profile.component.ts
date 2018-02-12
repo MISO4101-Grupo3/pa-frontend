@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
+import { RegisterService } from '../../services/register.service';
 import { UtilService } from '../../services/util.service';
 import { Usuario } from '../../domain/usuario';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +15,7 @@ import { SelectItem } from 'primeng/components/common/selectitem';
   selector: 'app-update-profile',
   templateUrl: './update-profile.component.html',
   styleUrls: ['./update-profile.component.scss'],
-  providers: [UtilService]
+  providers: [UtilService, RegisterService]
 })
 export class UpdateProfileComponent implements OnInit {
 
@@ -28,7 +29,7 @@ export class UpdateProfileComponent implements OnInit {
   ciudades: SelectItem[];
   selectedCity: SelectItem;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private utilService: UtilService) { 
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private utilService: UtilService, private registerService: RegisterService) { 
     this.ciudades = [];
     this.utilService.requestCities().subscribe(ciudades => {
       ciudades.forEach(data =>{
@@ -71,7 +72,8 @@ export class UpdateProfileComponent implements OnInit {
 
   onSubmit(value: FormGroup) {
     if (this.updateform.valid) {
-      // this.authService.login(this.updateform.value);
+      this.registerService.updateUser(this.user).subscribe(data => console.log(data))
+      this.router.navigateByUrl('promos')
     }
     this.submitted = true;
   }
