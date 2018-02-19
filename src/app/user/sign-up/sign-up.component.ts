@@ -47,7 +47,7 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(value: string) {
     if ( this.userform.valid ) {
-        this.registerService.register({...this.userform.value, foto: this.finalFile, favoritas: []});
+        this.registerService.register({...this.userform.value, foto: null, favoritas: []});
         this.router.navigateByUrl('sign-in')
     }
     this.submitted = true;
