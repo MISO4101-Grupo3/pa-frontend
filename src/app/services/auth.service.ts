@@ -13,7 +13,7 @@ import { Usuario } from '../domain/usuario';
 @Injectable()
 export class AuthService {
 
-    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
 
     private token: String;
 
@@ -24,7 +24,7 @@ export class AuthService {
     constructor(private http: HttpClient) {}
 
     get userName() {
-        return this.realName;
+        return localStorage.getItem('name') || this.realName;
     }
     
     get isLoggedIn() {
@@ -35,17 +35,22 @@ export class AuthService {
         return this.user;
     }
 
+    private hasToken(): boolean {
+        return !!localStorage.getItem('token');
+    }
+
     login(user: User) {
-        //TODO: real validation against server
         if (user.email !== '' && user.password != '' ){
             this.requestAuthenticationToken(user).subscribe(
                 data => {
                     if( 'token' in data ){
                         this.token = data.token;
+                        localStorage.setItem('token', this.token.toString());
                         this.requestPersonalData().subscribe(
                             data => {
                                 this.realName = data.first_name + ' ' + data.last_name;
                                 this.realName = this.realName.trim();
+                                localStorage.setItem('name', this.realName.toString());
                                 this.user = data;
                                 this.loggedIn.next(true);
                             }
@@ -86,6 +91,8 @@ export class AuthService {
     }
 
     logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
         this.realName = "";
         this.token = null;
         this.loggedIn.next(false);
