@@ -32,6 +32,11 @@ import { AuthService } from './services/auth.service';
 import { RegisterService } from './services/register.service';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 import { CommentService } from './services/comment.service';
+import { CiudadService } from './services/ciudad.service';
+import { FilterPipe } from './filter.pipe';
+import { CiudadComponent } from './ciudad/ciudad.component';
+import { CategoryComponent } from './category/category.component';
+import { CategoriaService } from './services/categoria.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,10 @@ import { CommentService } from './services/comment.service';
     SignUpComponent,
     SignInComponent,
     HeaderComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    FilterPipe,
+    CiudadComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -67,9 +75,12 @@ import { CommentService } from './services/comment.service';
   providers: [
     RegisterService,
     PromoService,
+    CiudadService,
+    CategoriaService,
     CommentService,
     AuthService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
