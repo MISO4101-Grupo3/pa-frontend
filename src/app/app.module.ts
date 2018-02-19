@@ -33,9 +33,6 @@ import { RegisterService } from './services/register.service';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 import { CommentService } from './services/comment.service';
 import { CiudadService } from './services/ciudad.service';
-import { FilterPipe } from './filter.pipe';
-import { CiudadComponent } from './ciudad/ciudad.component';
-import { CategoryComponent } from './category/category.component';
 import { CategoriaService } from './services/categoria.service';
 
 @NgModule({
@@ -47,9 +44,6 @@ import { CategoriaService } from './services/categoria.service';
     SignInComponent,
     HeaderComponent,
     UpdateProfileComponent,
-    FilterPipe,
-    CiudadComponent,
-    CategoryComponent
   ],
   imports: [
     BrowserModule,
