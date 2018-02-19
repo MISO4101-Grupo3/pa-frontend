@@ -1,4 +1,4 @@
 export interface Ciudad {
-    id? : String;
+    id? : number;
     nombre? : String;
 }
