@@ -6,6 +6,6 @@ export interface RegisterUser{
         ciudad? : String;
         foto? : String;
         direccion? : String;
-        favoritas? : String;
+        favoritas? : String[];
         password? : String;
 }

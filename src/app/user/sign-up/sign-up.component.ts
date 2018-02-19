@@ -18,6 +18,8 @@ export class SignUpComponent implements OnInit {
   ciudad: SelectItem[];
   firstTime: boolean;
   registerSubscription: Subscription;
+  file: any;
+  finalFile: String;
   msgs: any[];
 
   constructor(private fb: FormBuilder, private router: Router, private registerService: RegisterService) {}
@@ -45,9 +47,27 @@ export class SignUpComponent implements OnInit {
 
   onSubmit(value: string) {
     if ( this.userform.valid ) {
-        this.registerService.register({...this.userform.value, foto: null, favoritas: []});
+        this.registerService.register({...this.userform.value, foto: this.finalFile, favoritas: []});
+        this.router.navigateByUrl('sign-in')
     }
     this.submitted = true;
+  }
+
+  onFileChange(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.finalFile = reader.result.split(',')[1];
+        console.log('DataURL:', reader.readAsDataURL(this.file));
+        //this.finalFile = reader.result;
+        //this.userform.get('foto').setValue)
+        //this.userform.get('Foto').setValue({
+          //value: reader.result.split(',')[1]
+        //})
+      };
+    }
   }
 
   private handleAuth(): void {
