@@ -4,8 +4,28 @@
           <h1>
               Las mejores promociones<br/>para hoy
           </h1>
+          <h3>Filtros</h3>
+          <div>
+              <p>Ciudad: </p>
+              <span>
+                  <select [(ngModel)]="ciudadSeleccionada" (ngModelChange)="onChangeCiudad($event)">
+                      <option value="" selected>--</option>
+                      <option *ngFor="let ciudad of ciudades">{{ciudad.nombre}}</option>
+                  </select>
+              </span>   
+          </div>
+          <div>
+              <p>Categoria: </p>
+            <span>
+                <select  [(ngModel)]="categoriaSeleccionada" (ngModelChange)="onChangeCategoria($event)">
+                    <option value="" selected >--</option>
+                    <option *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
+                </select>
+            </span>
+        </div>
       </p-header>
       <p-footer>www.promociones.com - Todos los derechos reservados - MISO 4101 - 2018-I</p-footer>
+
       <ng-template let-promo pTemplate="item">
           <div class="ui-g-12 ui-md-3" style="padding:3px">
               <p-panel [header]="promo.nombre" [style]="{'text-align':'center'}">
