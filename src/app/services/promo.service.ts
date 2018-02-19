@@ -7,14 +7,23 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Promo } from '../domain/promo';
+import { Ciudad } from '../domain/ciudad';
 
 @Injectable()
 export class PromoService {
     
     constructor(private http: HttpClient) {}
     
-    getPromos(): Observable<Promo[]>{
-        return this.http.get<any>( environment.api + '/promociones/')
+    getPromos(categoria?: number, ciudad?:number): Observable<Promo[]>{
+        let url = environment.api + '/promociones/?';
+
+        if(categoria){
+            url = url+'categoria='+categoria+'&';
+        }
+        if(ciudad){
+            url = url+'ciudad='+ciudad+'&';
+        }
+        return this.http.get<any>(url)
         .pipe(
             catchError(this.handleError('Fetching /promociones', []))
           );
