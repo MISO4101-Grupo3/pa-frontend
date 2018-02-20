@@ -1,11 +1,11 @@
 export interface Usuario {
-    id?: String;
-    first_name? : String;
-    last_name? : String;
-    email? : String;
-    foto? : String;
-    direccion? : String;
-    pais? : String;
-    favoritas? : String[];
-    ciudad? : String;
+    id?: string;
+    first_name? : string;
+    last_name? : string;
+    email? : string;
+    foto? : string | any;
+    direccion? : string;
+    pais? : string;
+    favoritas? : string[];
+    ciudad? : string;
 }

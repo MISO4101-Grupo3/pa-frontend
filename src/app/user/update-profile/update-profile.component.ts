@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Category } from '../../domain/category';
 import { Ciudad } from '../../domain/ciudad';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import {RegisterUser} from "../../domain/registeruser";
 
 @Component({
   selector: 'app-update-profile',
@@ -22,15 +23,16 @@ export class UpdateProfileComponent implements OnInit {
   updateform: FormGroup;
   messages: any[];
   user: Usuario;
-  file: any;
+  file: File;
   finalFile: String;
   submitted = false;
   authSubscription: Subscription;
   categories: Category[];
   ciudades: SelectItem[];
   selectedCity: SelectItem;
+  selectedFile: File;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private utilService: UtilService, private registerService: RegisterService) { 
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private utilService: UtilService, private registerService: RegisterService) {
     this.ciudades = [];
     this.utilService.requestCities().subscribe(ciudades => {
       ciudades.forEach(data =>{
@@ -71,25 +73,31 @@ export class UpdateProfileComponent implements OnInit {
     });
   }
 
-  onSubmit(value: FormGroup) {
+  onSubmit(value: string) {
     if (this.updateform.valid) {
-      this.registerService.updateUser(this.user, this.finalFile).subscribe(data => console.log(data))
+
+      const updateDataUser: RegisterUser = {
+        email: this.updateform.value.email,
+        first_name: this.updateform.value.first_name,
+        last_name: this.updateform.value.last_name,
+        pais: this.updateform.value.pais,
+        ciudad: this.updateform.value.ciudad,
+        direccion: this.updateform.value.direccion,
+        favoritas: this.updateform.value.favoritas,
+        password: this.updateform.value.password,
+        foto: this.selectedFile
+      };
+
+      this.registerService.updateUser(updateDataUser).subscribe(data => console.log(data))
       this.router.navigateByUrl('promos')
     }
     this.submitted = true;
   }
 
   imageUpload(e) {
-    let reader = new FileReader();
-    //get the selected file from event
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      //Assign the result to variable for setting the src of image element
-      // this.user.foto = file;
-      this.finalFile = reader.result;
+    if(e.target && e.target.files && e.target.files.length > 0) {
+      this.selectedFile = e.target.files[0];
     }
-    reader.readAsDataURL(file);
-    console.log(this.file)
   }
 
 }

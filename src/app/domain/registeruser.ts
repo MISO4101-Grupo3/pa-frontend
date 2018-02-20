@@ -1,11 +1,11 @@
 export interface RegisterUser{
-        email? : String;
-        first_name? : String;
-        last_name? : String;
-        pais? : String;
-        ciudad? : String;
-        foto? : String;
-        direccion? : String;
-        favoritas? : String[];
-        password? : String;
+        email? : string;
+        first_name? : string;
+        last_name? : string;
+        pais? : string;
+        ciudad? : string;
+        foto? : string | any;
+        direccion? : string;
+        favoritas? : string[];
+        password? : string;
 }

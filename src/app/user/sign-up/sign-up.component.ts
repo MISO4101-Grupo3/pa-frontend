@@ -1,9 +1,11 @@
 import { SelectItem } from 'primeng/components/common/selectitem';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterService } from '../../services/register.service';
 import { Subscription } from 'rxjs/Subscription';
+import { HttpClient} from '@angular/common/http';
+import {RegisterUser} from "../../domain/registeruser";
 
 
 @Component({
@@ -18,11 +20,15 @@ export class SignUpComponent implements OnInit {
   ciudad: SelectItem[];
   firstTime: boolean;
   registerSubscription: Subscription;
-  file: any;
+  file: File;
   finalFile: String;
   msgs: any[];
+  selectedFile: File;
 
-  constructor(private fb: FormBuilder, private router: Router, private registerService: RegisterService) {}
+  @ViewChild('fileInput') fileInput: ElementRef;
+
+  constructor(private fb: FormBuilder, private router: Router, private registerService: RegisterService) {
+  }
 
   ngOnInit() {
     this.msgs = [];
@@ -35,7 +41,7 @@ export class SignUpComponent implements OnInit {
         'first_name': new FormControl('', Validators.required),
         'last_name': new FormControl('', Validators.required),
         'direccion': new FormControl('', Validators.required),
-        'foto': new FormControl(''),
+        'foto': new FormControl(null),
         'favoritas': new FormControl('')
 
     });
@@ -45,15 +51,35 @@ export class SignUpComponent implements OnInit {
     this.handleAuth();
   }
 
+
+
   onSubmit(value: string) {
     if ( this.userform.valid ) {
-        this.registerService.register({...this.userform.value, foto: null, favoritas: []});
-        this.router.navigateByUrl('sign-in')
+      const registerUser: RegisterUser = {
+        email: this.userform.value.email,
+        first_name: this.userform.value.first_name,
+        last_name: this.userform.value.last_name,
+        pais: this.userform.value.pais,
+        ciudad: this.userform.value.ciudad,
+        direccion: this.userform.value.direccion,
+        favoritas: this.userform.value.favoritas,
+        password: this.userform.value.password,
+        foto: this.selectedFile
+      };
+
+      this.registerService.register(registerUser);
+      this.router.navigateByUrl('sign-in')
     }
     this.submitted = true;
   }
 
+
+
   onFileChange(event) {
+    if(event.target && event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
+    /*
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
@@ -64,10 +90,10 @@ export class SignUpComponent implements OnInit {
         //this.finalFile = reader.result;
         //this.userform.get('foto').setValue)
         //this.userform.get('Foto').setValue({
-          //value: reader.result.split(',')[1]
+        //value: reader.result.split(',')[1]
         //})
       };
-    }
+    }*/
   }
 
   private handleAuth(): void {

@@ -23,32 +23,53 @@ export class RegisterService {
 
     register(user: RegisterUser) {
         //TODO: real validation against server
-        if (user.email !== '' && user.password != '' && user.ciudad !== '' && user.pais !== ''){
-            this.requestRegister(user).subscribe(
-                data => {
-                        this.registerIn.next(true);
-                    }
-            );
-        }
-        else {
-            this.registerIn.next(false);
-        }
+        /*if (user.email !== '' && user.password != '' && user.ciudad !== '' && user.pais !== ''){*/
+      this.requestRegister(user)
+        .subscribe(
+          data => {
+            this.registerIn.next(true);
+          }
+        );
+
     }
 
 
+  private requestRegister(user: RegisterUser): Observable<any> {
+    const userForm = new FormData();
 
-    private requestRegister(user: RegisterUser): Observable<any> {
+    userForm.append('foto', user.foto, user.foto.name);
+    userForm.append('email', user.email);
+    userForm.append('password', user.password);
+    userForm.append('pais', user.pais);
+    userForm.append('first_name', user.first_name);
+    userForm.append('last_name', user.last_name);
+    userForm.append('ciudad', user.ciudad);
+    userForm.append('direccion', user.direccion);
 
-        return this.http.post<any>( environment.api + '/usuarios/', user)
-            .pipe(
-                catchError(this.handleError('Failure authenticating user', {}))
-              );
-    }
+
+    return this.http.post<any>(environment.api + '/usuarios/', userForm)
+    //return this.http.post<any>('https://miso4101.herokuapp.com/api/usuarios/', userForm)
+      .pipe(
+        catchError(this.handleError('Failure authenticating user', {}))
+      );
+  }
 
 
 
-    updateUser(user: Usuario, file: any): Observable<any> {
-        return this.http.patch<any>( environment.api + '/usuarios/'+user.id+"/", {... user, foto: null}).pipe(catchError(this.handleError('Failure authenticating user', {})))
+    updateUser(user: Usuario): Observable<any> {
+
+      const userForm = new FormData();
+
+      userForm.append('foto', user.foto, user.foto.name);
+      userForm.append('email', user.email);
+      userForm.append('pais', user.pais);
+      userForm.append('first_name', user.first_name);
+      userForm.append('last_name', user.last_name);
+      userForm.append('ciudad', user.ciudad);
+      userForm.append('direccion', user.direccion);
+
+        return this.http.patch<any>( environment.api + '/usuarios/'+user.id+"/", userForm)
+          .pipe(catchError(this.handleError('Failure authenticating user', {})))
     }
 
     private handleError<T> (operation = 'operation', result?: T) {
